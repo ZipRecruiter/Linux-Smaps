@@ -176,12 +176,12 @@ sub update {
     } elsif( $l=~/^(\w+):\s*(\d+) kB$/ ) {
       $m=lc $1;
 
-      if( exists $Linux::Smaps::VMA::attributes{$m} ) {
-	$I->[M_lasterror]="Linux::Smaps::VMA::$m method is already defined";
-	return;
-      }
       if( exists $Linux::Smaps::attributes{$m} ) {
 	$I->[M_lasterror]="Linux::Smaps::$m method is already defined";
+	return;
+      }
+      if( exists $Linux::Smaps::VMA::attributes{$m} ) {
+	$I->[M_lasterror]="Linux::Smaps::VMA::$m method is already defined";
 	return;
       }
 
