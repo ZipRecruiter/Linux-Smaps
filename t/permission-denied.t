@@ -19,16 +19,17 @@ if ($init_exists) {
 plan tests => 4;
 
 my $s=eval { Linux::Smaps->new($init_pid) };
-like $@, qr{read failed}, "Permission denied to read process with pid $init_pid";
+# New kernels will fail open, older kernels will fail read
+like $@, qr{Cannot open|read failed}, "Permission denied to read process with pid $init_pid";
 ok !$s, "No object constructed";
 
 $s=Linux::Smaps->new(uninitialized=>1);
 $s->pid=$init_pid;
 is $s->update, undef, "  ->update";
-like $s->lasterror, qr{read failed}, "  ->lasterror";
+like $s->lasterror, qr{Cannot open|read failed}, "  ->lasterror";
 
 done_testing;
 
 # Local Variables:
-# mode: perl
+# mode: cperl
 # End:
