@@ -49,6 +49,13 @@ BEGIN {
     our @special;
   }
 
+  sub _default_special {
+    my $l = $_[0];
+    $l =~ s/\s+$//;
+    my @l=split /\s+/, $l, 2;
+    my $res = pop @l;
+  }
+
   sub new {bless [@_[1..$#_]]=>(ref $_[0] ? ref $_[0] : $_[0])}
 
   sub _parse {
@@ -222,7 +229,8 @@ sub update {
 	$cnt1=length($m);
 	$fmt1="x".($cnt1+1)."A*";
       }
-    } elsif( $l=~/^(\w+):.+$/ and $tmp=$Linux::Smaps::VMA::special{$m=lc $1} ) {
+    } elsif( $l=~/^(\w+):.+$/ ) {
+      my $tmp = $Linux::Smaps::VMA::special{$m=lc $1} || \&Linux::Smaps::VMA::_default_special;
       if( exists $Linux::Smaps::VMA::attributes{$m} ) {
 	$I->[M_lasterror]="Linux::Smaps::VMA::$m method is already defined";
 	return;
