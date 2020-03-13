@@ -1,0 +1,11 @@
+/Makefile
+/Makefile.old
+/META.json
+/META.yml
+/MYMETA.*
+/MANIFEST
+/MANIFEST.bak
+/Linux-Smaps-*
+/blib
+/cover_db
+/nytprof.out
