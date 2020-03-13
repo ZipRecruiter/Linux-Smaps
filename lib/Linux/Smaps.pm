@@ -6,6 +6,8 @@ use warnings FATAL=>'all';
 no warnings qw(uninitialized portable);
 use Errno qw/EACCES/;
 
+our $VERSION = '0.14';
+
 my $min_vma_off;
 
 BEGIN {
@@ -93,8 +95,6 @@ BEGIN {
     *{__PACKAGE__.'::M_'.$attributes[$n]}=sub () {$n};
   }
 }
-
-our $VERSION = '0.13';
 
 sub new {
   my $class=shift;
