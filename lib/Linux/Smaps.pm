@@ -267,7 +267,7 @@ sub update {
 }
 
 BEGIN {
-  foreach my $n (qw{heap stack vdso vsyscall}) {
+  foreach my $n (qw{heap stack vdso vvar vsyscall}) {
     no strict 'refs';
     my $name=$n;
     my $s="[$n]";
@@ -343,7 +343,7 @@ sub names {
     $_->_parse if !defined($_->[V_file_name]) and defined($_->[V__line]);
     $_->[V_file_name];
   } @{$I->[M__elem]}};
-  delete @h{'',qw/[heap] [stack] [vdso] [vsyscall]/};
+  delete @h{'',qw/[heap] [stack] [vdso] [vvar] [vsyscall]/};
   return keys %h;
 }
 
@@ -615,6 +615,8 @@ the way but all my kernels still lack it.
 =head3 $self-E<gt>vdso
 
 =head3 $self-E<gt>vsyscall
+
+=head3 $self-E<gt>vvar
 
 these are shortcuts to the corresponding C<Linux::Smaps::VMA> objects.
 
